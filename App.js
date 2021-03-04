@@ -1,12 +1,12 @@
 // import { StatusBar } from 'expo-status-bar';
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
   Button,
   ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 
 export default function App() {
@@ -46,8 +46,12 @@ export default function App() {
     }));
   };
 
+  const getSumStatusOfTasks = (condition) => {
+    return tasksArr.reduce((accum, elem) => ((elem['isFinished'] === condition) ? accum + 1 : accum), 0);
+  }
+
   return (
-    <ScrollView style={styles.mainContainer}>
+    <View style={styles.mainContainer}>
       <View style={styles.inputContainer}>
         <TextInput
           ref={inputRef}
@@ -59,6 +63,7 @@ export default function App() {
         <Button title="ADD" onPress={addNewItemToList} />
       </View>
       <View style={styles.containersTasks}>
+      <ScrollView>
         {tasksArr.map(({key, description, isFinished}) => (
             <View
               key={key}
@@ -75,8 +80,16 @@ export default function App() {
             </View>
           )
         )}
+      </ScrollView>
       </View>
-    </ScrollView>
+      {tasksArr.length
+        ? (
+          <View style={styles.summaryList}>
+            <Text>Done:{getSumStatusOfTasks(true)}</Text>
+            <Text>Not started:{getSumStatusOfTasks(false)}</Text>
+          </View>
+        ) : null}
+    </View>
   );
 }
 
@@ -101,13 +114,10 @@ const styles = StyleSheet.create({
   },
   containersTasks: {
     marginTop: 20,
-    flex: 1,
     width: '100%',
-    height: '100%',
+    height: '85%',
     minHeight: 550,
     backgroundColor: "#fff",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
     borderWidth: 1,
     borderColor: "lightgray",
   },
@@ -136,5 +146,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15.5,
     borderWidth: 1,
     borderColor: 'grey',
+  },
+  summaryList: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    marginTop: 5,
   }
 });
