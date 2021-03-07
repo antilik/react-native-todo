@@ -1,12 +1,11 @@
-// import { StatusBar } from 'expo-status-bar';
 import React, { useRef, useState } from "react";
 import {
   Button,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
+  FlatList,
 } from "react-native";
 
 export default function App() {
@@ -20,16 +19,16 @@ export default function App() {
 
   const addNewItemToList = () => {
     setTasksArr((tasksArr) => [...tasksArr, {
-      key: Date.now(),
-      description: newTask,
+      id: Date.now().toString() + Math.random().toString(),
+      value: newTask,
       isFinished: false,
     }]);
     setNewTask("");
-    inputRef.current.focus();
+    // inputRef.current.focus();
   };
 
   const toggleTask = (i) => {
-    const getSelectedIndex = () => tasksArr.findIndex(({key}) => key === i);
+    const getSelectedIndex = () => tasksArr.findIndex(({id}) => id === i);
 
     const selectedIndex = getSelectedIndex();
 
@@ -41,14 +40,29 @@ export default function App() {
       ])
   };
   const deleteTask = (indexToDelete) => {
-    setTasksArr((tasksArr) => tasksArr.filter(({key}) => {
-      return key !== indexToDelete;
+    setTasksArr((tasksArr) => tasksArr.filter(({id}) => {
+      return id !== indexToDelete;
     }));
   };
 
   const getSumStatusOfTasks = (condition) => {
     return tasksArr.reduce((accum, elem) => ((elem['isFinished'] === condition) ? accum + 1 : accum), 0);
   }
+
+  const getItemTask = ({item}) => (
+    <View
+      style={styles.containerTask}
+    >
+      <Text
+        style={styles.textItem}
+        onPress={() => toggleTask(item.id)}
+      > {item.isFinished ? "+" : "-"} {item.value}</Text>
+      <Text
+        style={styles.deleleBtn}
+        onPress={() => deleteTask(item.id)}
+      >x</Text>
+    </View>
+  );
 
   return (
     <View style={styles.mainContainer}>
@@ -63,24 +77,11 @@ export default function App() {
         <Button title="ADD" onPress={addNewItemToList} />
       </View>
       <View style={styles.containersTasks}>
-      <ScrollView>
-        {tasksArr.map(({key, description, isFinished}) => (
-            <View
-              key={key}
-              style={styles.containerTask}
-            >
-              <Text
-                style={styles.textItem}
-                onPress={() => toggleTask(key)}
-              > {isFinished ? "+" : "-"} {description}</Text>
-              <Text
-                style={styles.deleleBtn}
-                onPress={() => deleteTask(key)}
-              >x</Text>
-            </View>
-          )
-        )}
-      </ScrollView>
+      <FlatList
+        keyExtractor={(item) => item.id}
+        data={tasksArr}
+        renderItem={getItemTask}
+      />
       </View>
       {tasksArr.length
         ? (
