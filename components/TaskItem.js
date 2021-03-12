@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet} from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, TouchableHighlight} from "react-native";
 
 const TaskItem = ({taskData,tasksListArr, setTasksListArr }) => {
 
@@ -25,14 +25,23 @@ const TaskItem = ({taskData,tasksListArr, setTasksListArr }) => {
     <View
       style={styles.containerTask}
     >
+      <TouchableHighlight
+        underlayColor='lightgreen'
+        style={styles.textContainer}
+        onPress={toggleTask.bind(this, taskData.id)}
+      >
       <Text
         style={styles.textItem}
-        onPress={toggleTask.bind(this, taskData.id)}
       > {taskData.isFinished ? "+" : "-"} {taskData.value}</Text>
+      </TouchableHighlight>
+      <TouchableOpacity
+        style={styles.deleteBtnContainer}
+        onPress={deleteTask.bind(this, taskData.id)}
+      >
       <Text
         style={styles.deleleBtn}
-        onPress={deleteTask.bind(this, taskData.id)}
       >x</Text>
+    </TouchableOpacity>
     </View>
   )
 };
@@ -47,22 +56,27 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     backgroundColor: 'rgb(245,245,245)',
   },
-  textItem: {
+  textContainer: {
     flex: 10,
+  },
+  textItem: {
     marginVertical: 5,
     color: "blue",
     fontSize: 20,
   },
-  deleleBtn: {
+  deleteBtnContainer: {
     position: 'absolute',
     top: -1,
     right: 0,
-    color: 'red',
-    fontWeight: 'bold',
+  },
+  deleleBtn: {
     paddingVertical: 8.6,
     paddingHorizontal: 15.5,
+    fontWeight: 'bold',
+    color: 'white',
     borderWidth: 1,
     borderColor: 'grey',
+    backgroundColor: 'red',
   },
 })
 
