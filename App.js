@@ -2,8 +2,7 @@ import React, {
   useState,
 } from "react";
 import {
-  StyleSheet,
-  View,
+  StyleSheet, View, Button,
 } from "react-native";
 
 import TaskInput from "./components/TaskInput";
@@ -12,16 +11,28 @@ import TasksContainer from "./components/TasksContainer";
 
 export default function App() {
   const [tasksListArr, setTasksListArr] = useState([]);
+  const [isShownModalAddTask, setIsShownModalAddTask] = useState(false);
 
   return (
     <View style={styles.mainContainer}>
       <TaskInput
         setTasksListArr={setTasksListArr}
+        isVisible={isShownModalAddTask}
+        setIsVisible={setIsShownModalAddTask}
       />
       <TasksContainer
         tasksListArr={tasksListArr}
         setTasksListArr={setTasksListArr}
       />
+      <View
+        style={styles.btnModalIsShown}
+      >
+      <Button
+        title='Add New Goal'
+
+        onPress={setIsShownModalAddTask.bind(this,true)}
+      />
+      </View>
       <TaskSummaryInfo
         tasksListArr={tasksListArr}
       />
@@ -32,6 +43,10 @@ export default function App() {
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: 'rgb(245,245,245)',
-    padding: 5,
+    marginTop: 25,
+    paddingHorizontal: 5,
   },
+  btnModalIsShown: {
+    marginBottom: 16,
+  }
 });
