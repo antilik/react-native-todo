@@ -1,5 +1,7 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, TouchableHighlight} from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity,
+  TouchableHighlight,
+} from "react-native";
 
 const TaskItem = ({taskData,tasksListArr, setTasksListArr }) => {
 
