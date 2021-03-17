@@ -34,7 +34,7 @@ const TaskItem = ({taskData,tasksListArr, setTasksListArr }) => {
       >
       <Text
         style={styles.textItem}
-      > {taskData.isFinished ? "+" : "-"} {taskData.value}</Text>
+      > {taskData.isFinished ? "+" : " -"} {taskData.value}</Text>
       </TouchableHighlight>
       <TouchableOpacity
         style={styles.deleteBtnContainer}
