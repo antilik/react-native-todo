@@ -1,23 +1,24 @@
 import React from 'react';
-import { FlatList, View, StyleSheet } from "react-native";
+import { FlatList, View, StyleSheet } from 'react-native';
 
-import TaskItem from "./TaskItem";
+import TaskItem from './TaskItem';
 
-const TasksContainer = ({tasksListArr, setTasksListArr}) => {
-  return(
+const TasksContainer = ({ tasksListArr, setTasksListArr }) => {
+  return (
     <View style={styles.containersTasks}>
-    <FlatList
-      keyExtractor={(item) => item.id}
-      data={tasksListArr}
-      renderItem={({item}) => (
-        <TaskItem
-          taskData={item}
-          tasksListArr={tasksListArr}
-          setTasksListArr={setTasksListArr}
-        />
-      )}
-    />
-  </View>)
+      <FlatList
+        keyExtractor={(item) => item.id}
+        data={tasksListArr}
+        renderItem={({ item }) => (
+          <TaskItem
+            taskData={item}
+            tasksListArr={tasksListArr}
+            setTasksListArr={setTasksListArr}
+          />
+        )}
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -26,10 +27,10 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '87%',
     minHeight: 550,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     borderWidth: 1,
-    borderColor: "lightgray",
+    borderColor: 'lightgray',
   },
-})
+});
 
 export default TasksContainer;
