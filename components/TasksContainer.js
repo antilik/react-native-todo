@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   containersTasks: {
     marginTop: 20,
     width: '100%',
-    height: '87%',
+    height: '81%',
     minHeight: 550,
     backgroundColor: '#fff',
     borderWidth: 1,
