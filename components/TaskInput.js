@@ -11,16 +11,21 @@ const TaskInput = ({ setTasksListArr, isVisible, setIsNotVisible }) => {
   };
 
   const addNewItemToList = () => {
-    setTasksListArr((prevTasksArr) => [
-      ...prevTasksArr,
-      {
-        id: Date.now().toString() + Math.random().toString(),
-        value: newTask,
-        isFinished: false,
-      },
-    ]);
-    setNewTask('');
-    setIsNotVisible();
+    if (newTask.length === 0) {
+      setIsNotVisible();
+      return;
+    } else {
+      setTasksListArr((prevTasksArr) => [
+        ...prevTasksArr,
+        {
+          id: Date.now().toString() + Math.random().toString(),
+          value: newTask.trim(),
+          isFinished: false,
+        },
+      ]);
+      setNewTask('');
+      setIsNotVisible();
+    }
   };
 
   return (
